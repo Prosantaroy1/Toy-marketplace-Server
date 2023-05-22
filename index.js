@@ -32,7 +32,30 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-
+    //
+     const productCollection = client.db('Toy-Car').collection('product');
+    //Post data Server
+    app.post('/product', async(req, res)=>{
+        const product = req.body;
+        const result = await productCollection.insertOne(product);
+        res.send(result)     
+    })
+    //all data get
+    app.get('/product', async(req, res)=>{
+        const result =await productCollection.find().toArray();
+        res.send(result)
+    })
+    ///data Get server
+    app.get('/product/:subCategory', async(req, res)=>{
+            //console.log(req.query)
+           if(req.params.subCategory == 'truck' || req.params.subCategory == 'sports car' || req.params.subCategory == 'regular car'){
+              const result = await productCollection.find({subCategory : req.params.subCategory}).toArray();
+              res.send(result);
+              //console.log(result)
+           }
+          // const result = await productCollection.find().toArray();
+          // res.send(result);
+    })
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
