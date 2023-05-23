@@ -47,13 +47,7 @@ async function run() {
         res.send(result)
     })
     //data details
-    app.get('/products/:id', async(req, res)=>{
-         const id = req.params.id;
-         //console.log(id)
-         const query ={_id: new ObjectId(id)}
-         console.log(query)
     
-    })
     ///data Get server
     app.get('/product/:subCategory', async(req, res)=>{
             //console.log(req.query)
