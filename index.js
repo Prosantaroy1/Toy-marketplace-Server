@@ -40,10 +40,19 @@ async function run() {
         const result = await productCollection.insertOne(product);
         res.send(result)     
     })
+    
     //all data get
     app.get('/product', async(req, res)=>{
         const result =await productCollection.find().toArray();
         res.send(result)
+    })
+    //data details
+    app.get('/products/:id', async(req, res)=>{
+         const id = req.params.id;
+         //console.log(id)
+         const query ={_id: new ObjectId(id)}
+         console.log(query)
+    
     })
     ///data Get server
     app.get('/product/:subCategory', async(req, res)=>{
